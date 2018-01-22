@@ -19,6 +19,7 @@ def catchAction(m, d, data):
 		soup = BeautifulSoup(requests.get("http://www.todayonhistory.com/" + str(m) + '/' + str(d) + '/', headers=headers).content, 'html.parser', from_encoding='utf-8')
 		imgDiv = soup.find_all('div', 'pic')
 		subArr = []
+
 		for index, iD in enumerate(imgDiv):
 			if iD.a and iD.a.img:
 				temp = iD.a.img
@@ -26,12 +27,28 @@ def catchAction(m, d, data):
 				if src[0] == '/':
 					src = 'http://www.todayonhistory.com' + src
 				subArr.append({'src': src, 'year': iD.find_previous_sibling().span.b.text, 'title': temp['alt']})
+		i = 1
+
+		while i < 4:
+			conten = json.loads(requests.get("http://www.todayonhistory.com/index.php?m=content&c=index&a=json_event&page=%s&pagesize=40&month=%s&day=%s" % (str(i), str(m), str(d)), headers=headers).content)
+			if conten == 0:
+				i = 4
+			else:
+				for index, item in enumerate(conten):
+					src = item['thumb']
+					if len(src) > 0:
+						if src[0] == '/':
+							src = 'http://www.todayonhistory.com' + src
+						subArr.append({'src': src, 'year': item['solaryear'], 'title': item['title']})
+			i = i + 1
+
 		data.append((str(m*100 + d), json.dumps(subArr)))
 	except Exception as e:
 		print('Error:', e)
 	
 	
 mon = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+# mon = [2]
 for index, item in enumerate(mon):
 	result = []
 	for i in range(item):
