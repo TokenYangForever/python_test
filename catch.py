@@ -55,8 +55,9 @@ def catchAction(m, d, data):
 		print('Error:', e)
 	finally:
 		print('爬取完毕:'+str(m)+str(d))
-	
-mon = [0, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+# mon = [0, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+mon = [0, 0, 0, 0, 0, 0, 0, 0, 30, 31, 30, 31]
 for index, item in enumerate(mon):
 	result = []
 	for i in range(item):
