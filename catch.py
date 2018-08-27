@@ -72,3 +72,4 @@ for index, item in enumerate(mon):
 	except Exception as e:
 		print('Error:', e)
 cursor.close()
+# 爬虫 爬取历史上的今天，数据存入mysql
