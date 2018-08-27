@@ -23,6 +23,6 @@ f2.write(php.content)
 f.close()
 f2.close()
 subprocess.call('git add . && git commit -m "脚本提交" && git push', shell=True)
-
+# 利用crontab设置定时任务，从mock系统拉取数据，自动提交到git上
 # crontab -e
 # 30 18 * * 1-5 cd /Users/tangyang/Desktop/lechebang/server/mockData && /Users/tangyang/anaconda3/bin/python3 getData.py > /dev/null
