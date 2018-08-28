@@ -3,10 +3,11 @@ import time
 import subprocess
 import os
 
-
 now = time.time()
 files = os.listdir()
 for file in files:
+	if file.endswith('.py'):
+		continue
 	if now - os.stat(file).st_ctime > 4 * 24 * 3600:
 		os.remove(file)
 
